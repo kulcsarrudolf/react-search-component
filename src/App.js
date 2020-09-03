@@ -1,7 +1,12 @@
 import React from "react";
+import SearchCar from "./components/search/SearchCar";
 
 function App() {
-  return <></>;
+  return (
+    <>
+      <SearchCar />
+    </>
+  );
 }
 
 export default App;

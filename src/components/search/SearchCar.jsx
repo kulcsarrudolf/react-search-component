@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+
+import ResultManagement from "./ResultManagement";
+
 import { getRandomCarId } from "./../../services/carService";
 import { getRandomCarIdList } from "./../../services/carService";
 
@@ -26,6 +29,8 @@ const SearchCar = () => {
       >
         VIN
       </button>
+
+      <ResultManagement carIdList={carIdList} />
     </>
   );
 };

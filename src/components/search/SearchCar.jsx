@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import ResultManagement from "./ResultManagement";
+import SearchByCarId from "./SearchByCarId";
 
 import { getRandomCarId } from "./../../services/carService";
 import { getRandomCarIdList } from "./../../services/carService";
@@ -19,7 +19,7 @@ const SearchCar = () => {
           showResult(true);
         }}
       >
-        GET ALL RED CARS
+        GET ALL CARS FOR SALE
       </button>
       <button
         onClick={() => {
@@ -30,7 +30,7 @@ const SearchCar = () => {
         GET A RANDOM CAR
       </button>
 
-      {isResultVisible && <ResultManagement carIdList={carIdList} />}
+      {isResultVisible && <SearchByCarId carIdList={carIdList} />}
     </>
   );
 };

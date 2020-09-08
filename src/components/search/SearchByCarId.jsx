@@ -4,7 +4,9 @@ import ResultNotFound from "./ResultNotFound";
 import MultipleResultFound from "./MultipleResultFound";
 import Result from "./Result";
 
-const ResultManagement = (props) => {
+import { getRandomCarData } from "./../../services/carService";
+
+const SearchByCarId = (props) => {
   const carIdList = props.carIdList;
   const carIdListLength = carIdList.length;
 
@@ -16,7 +18,8 @@ const ResultManagement = (props) => {
       setCar(null);
       setResultState("RESULT_NOT_FOUND");
     } else if (carIdListLength === 1) {
-      setCar(carIdList[0]);
+      const car = getRandomCarData(carIdList[0]);
+      setCar(car);
       setResultState("RESULT");
     } else {
       setCar(null);
@@ -28,14 +31,15 @@ const ResultManagement = (props) => {
     <>
       {resultState === "RESULT_NOT_FOUND" && <ResultNotFound />}
 
-      {resultState === "RESULT" && <Result carId={selectedCar} />}
+      {resultState === "RESULT" && <Result car={selectedCar} />}
 
       {resultState === "MULTIPLE_RESULT" && (
         <MultipleResultFound
           carIdList={carIdList}
           selectCar={(carId) => {
+            const car = getRandomCarData(carId);
+            setCar(car);
             setResultState("RESULT");
-            setCar(carId);
           }}
         />
       )}
@@ -43,4 +47,4 @@ const ResultManagement = (props) => {
   );
 };
 
-export default ResultManagement;
+export default SearchByCarId;

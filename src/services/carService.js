@@ -12,6 +12,21 @@ const listOfId = [
   "AB0123456791",
 ];
 
+const CAR_MAKERS = ["AUDI", "BMW", "VW", "Tesla", "Mercedes", "Porsche"];
+const COLOURS = [
+  "BLACK",
+  "BROWN",
+  "GRAY",
+  "WHITE",
+  "YELLOW",
+  "ORANGE",
+  "RED",
+  "PINK",
+  "PURPLE",
+  "BLUE",
+  "GREEN",
+];
+
 export const getRandomCarId = () => {
   const random = Math.floor(Math.random() * listOfId.length);
   return listOfId[random];
@@ -30,7 +45,8 @@ export const getRandomCarIdList = () => {
 };
 
 export const getRandomCarData = (carId) => {
-  //   const sources = ["AAA", "BBB", "CCC", "DDD", "EEE"];
+  const maker = CAR_MAKERS[Math.floor(Math.random() * CAR_MAKERS.length)];
+  const color = COLOURS[Math.floor(Math.random() * COLOURS.length)];
 
-  return { found: ["XYZ"], notFound: ["AAA", "BBB", "CCC"] };
+  return { id: carId, maker: maker, color: color };
 };

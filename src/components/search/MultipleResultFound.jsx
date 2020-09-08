@@ -4,7 +4,7 @@ const MultipleResultFound = (props) => {
   const carIdList = props.carIdList;
   return (
     <>
-      <h3>Multiple result found. Please select one to continue</h3>
+      <h3>Select one to continue.</h3>
       <ul>
         {carIdList.map((carId) => (
           <li

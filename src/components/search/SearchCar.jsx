@@ -19,7 +19,7 @@ const SearchCar = () => {
           showResult(true);
         }}
       >
-        IMSI
+        GET ALL RED CARS
       </button>
       <button
         onClick={() => {
@@ -27,10 +27,10 @@ const SearchCar = () => {
           showResult(true);
         }}
       >
-        VIN
+        GET A RANDOM CAR
       </button>
 
-      <ResultManagement carIdList={carIdList} />
+      {isResultVisible && <ResultManagement carIdList={carIdList} />}
     </>
   );
 };

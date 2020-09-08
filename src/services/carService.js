@@ -30,7 +30,7 @@ export const getRandomCarIdList = () => {
 };
 
 export const getRandomCarData = (carId) => {
-  const sources = ["AAA", "BBB", "CCC", "DDD", "EEE"];
+  //   const sources = ["AAA", "BBB", "CCC", "DDD", "EEE"];
 
   return { found: ["XYZ"], notFound: ["AAA", "BBB", "CCC"] };
 };

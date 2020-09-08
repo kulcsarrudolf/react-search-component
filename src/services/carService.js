@@ -27,6 +27,10 @@ const COLOURS = [
   "GREEN",
 ];
 
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 export const getRandomCarId = () => {
   const random = Math.floor(Math.random() * listOfId.length);
   return listOfId[random];
@@ -44,9 +48,20 @@ export const getRandomCarIdList = () => {
   return Array.from(new Set(result));
 };
 
-export const getRandomCarData = (carId) => {
+const getRandomCarDataById = (carId) => {
   const maker = CAR_MAKERS[Math.floor(Math.random() * CAR_MAKERS.length)];
   const color = COLOURS[Math.floor(Math.random() * COLOURS.length)];
 
   return { id: carId, maker: maker, color: color };
+};
+
+export const getCarById = async (id) => {
+  const resultFound = Math.random() >= 0.1;
+  await sleep(250 + Math.floor(Math.random() * Math.floor(750)));
+
+  if (resultFound) {
+    return getRandomCarDataById(id);
+  } else {
+    return null;
+  }
 };

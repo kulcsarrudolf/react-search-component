@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import SearchByCarId from "./SearchByCarId";
+import SearchCarById from "./SearchCarById";
 
 import { getRandomCarId } from "./../../services/carService";
 import { getRandomCarIdList } from "./../../services/carService";
@@ -30,7 +30,7 @@ const SearchCar = () => {
         GET A RANDOM CAR
       </button>
 
-      {isResultVisible && <SearchByCarId carIdList={carIdList} />}
+      {isResultVisible && <SearchCarById carIdList={carIdList} />}
     </>
   );
 };

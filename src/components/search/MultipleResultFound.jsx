@@ -10,7 +10,8 @@ const MultipleResultFound = (props) => {
           <li
             key={carId}
             onClick={() => {
-              props.selectCar(carId);
+              // props.selectCar(carId);
+              console.log(carId);
             }}
           >
             {carId}

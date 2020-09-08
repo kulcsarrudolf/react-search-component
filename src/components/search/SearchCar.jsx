@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 
 import SearchCarById from "./SearchCarById";
+import MultipleResultFound from "./MultipleResultFound";
 
 import { getRandomCarId } from "./../../services/carService";
 import { getRandomCarIdList } from "./../../services/carService";
 
 const SearchCar = () => {
   const [carIdList, setCarIdList] = useState([]);
-  const [isResultVisible, showResult] = useState(false);
 
   return (
     <>
@@ -16,7 +16,6 @@ const SearchCar = () => {
         onClick={() => {
           const carIdList = getRandomCarIdList();
           setCarIdList(carIdList);
-          showResult(true);
         }}
       >
         GET ALL CARS FOR SALE
@@ -24,13 +23,13 @@ const SearchCar = () => {
       <button
         onClick={() => {
           setCarIdList(Array.of(getRandomCarId()));
-          showResult(true);
         }}
       >
         GET A RANDOM CAR
       </button>
 
-      {isResultVisible && <SearchCarById carIdList={carIdList} />}
+      {carIdList.length === 1 && <SearchCarById carId={carIdList[0]} />}
+      {carIdList.length > 1 && <MultipleResultFound carIdList={carIdList} />}
     </>
   );
 };

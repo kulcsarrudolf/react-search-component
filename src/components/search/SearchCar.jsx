@@ -3,40 +3,63 @@ import React, { useState } from "react";
 import SearchCarById from "./SearchCarById";
 import SearchCarByColor from "./SearchCarByColor";
 
+import { isValidCarId } from "./../../utils/carValidation";
+import { isValidCarColor } from "./../../utils/carValidation";
+import { isValidInput } from "./../../utils/carValidation";
+
 const SearchCar = () => {
   const [searchingValue, setSearchingValue] = useState("");
-  const [search, setSearch] = useState(null);
+  const [validSearchingValue, setValidSearchingValue] = useState(null);
+  const [searchButtonDisabled, disableSearchButton] = useState(true);
+  const [searchType, setSearchType] = useState(null);
 
   const handleSearchInputChange = (e) => {
-    setSearch(null);
     setSearchingValue(e.target.value);
+
+    if (isValidInput(e.target.value)) {
+      disableSearchButton(false);
+    } else {
+      disableSearchButton(true);
+    }
   };
 
   const handleSearchClick = () => {
-    if (searchingValue.length === 12) {
-      setSearch("SEARCH_BY_ID");
+    disableSearchButton(true);
+    setValidSearchingValue(searchingValue);
+
+    if (isValidCarId(searchingValue)) {
+      setSearchType("SEARCH_BY_ID");
+    } else if (isValidCarColor(searchingValue)) {
+      setSearchType("SEARCH_BY_COLOR");
     } else {
-      setSearch("SEARCH_BY_COLOR");
+      setSearchType(null);
     }
   };
 
   return (
     <>
       <h2>Search Vehicle</h2>
+
       <input
         type="text"
         onChange={handleSearchInputChange}
         value={searchingValue}
       />
-      <button onClick={handleSearchClick}>Search</button>
 
-      {search === "SEARCH_BY_ID" && <SearchCarById carId={searchingValue} />}
-      {search === "SEARCH_BY_COLOR" && (
+      <button disabled={searchButtonDisabled} onClick={handleSearchClick}>
+        Search
+      </button>
+
+      {searchType === "SEARCH_BY_ID" && (
+        <SearchCarById carId={validSearchingValue} />
+      )}
+
+      {searchType === "SEARCH_BY_COLOR" && (
         <SearchCarByColor
-          color={searchingValue}
+          color={validSearchingValue}
           selectCar={(carId) => {
-            setSearchingValue(carId);
-            setSearch("SEARCH_BY_ID");
+            setValidSearchingValue(carId);
+            setSearchType("SEARCH_BY_ID");
           }}
         />
       )}

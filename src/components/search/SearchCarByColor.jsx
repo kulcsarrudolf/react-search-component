@@ -4,10 +4,11 @@ import { getRandomCarIdList } from "./../../services/carService";
 
 const SearchCarByColor = (props) => {
   const carIdList = getRandomCarIdList();
+  const selectedColor = props.color;
   const selectCar = props.selectCar;
   return (
     <>
-      <h3>Select one to continue.</h3>
+      <h3>List of the {selectedColor} cars</h3>
       <ul>
         {carIdList.map((carId) => (
           <li

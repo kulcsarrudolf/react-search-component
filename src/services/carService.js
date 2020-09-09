@@ -13,7 +13,7 @@ const listOfId = [
 ];
 
 const CAR_MAKERS = ["AUDI", "BMW", "VW", "Tesla", "Mercedes", "Porsche"];
-const COLOURS = [
+export const COLOURS = [
   "BLACK",
   "BROWN",
   "GRAY",

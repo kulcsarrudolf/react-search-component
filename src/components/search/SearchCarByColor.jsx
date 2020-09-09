@@ -6,6 +6,7 @@ const SearchCarByColor = (props) => {
   const carIdList = getRandomCarIdList();
   const selectedColor = props.color;
   const selectCar = props.selectCar;
+
   return (
     <>
       <h3>List of the {selectedColor} cars</h3>
@@ -25,4 +26,4 @@ const SearchCarByColor = (props) => {
   );
 };
 
-export default SearchCarByColor;
+export default React.memo(SearchCarByColor);

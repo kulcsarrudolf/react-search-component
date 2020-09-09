@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 
 import SearchCarById from "./SearchCarById";
 import SearchCarByColor from "./SearchCarByColor";
@@ -36,6 +36,11 @@ const SearchCar = () => {
     }
   };
 
+  const selectCar = useCallback((carId) => {
+    setValidSearchingValue(carId);
+    setSearchType("SEARCH_BY_ID");
+  }, []);
+
   return (
     <>
       <h2>Search Vehicle</h2>
@@ -55,13 +60,7 @@ const SearchCar = () => {
       )}
 
       {searchType === "SEARCH_BY_COLOR" && (
-        <SearchCarByColor
-          color={validSearchingValue}
-          selectCar={(carId) => {
-            setValidSearchingValue(carId);
-            setSearchType("SEARCH_BY_ID");
-          }}
-        />
+        <SearchCarByColor color={validSearchingValue} selectCar={selectCar} />
       )}
     </>
   );

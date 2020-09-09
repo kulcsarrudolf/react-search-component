@@ -36,6 +36,10 @@ export const getRandomCarId = () => {
   return listOfId[random];
 };
 
+export const getRandomColor = () => {
+  return COLOURS[Math.floor(Math.random() * COLOURS.length)];
+};
+
 export const getRandomCarIdList = () => {
   const result = [];
 
@@ -50,7 +54,7 @@ export const getRandomCarIdList = () => {
 
 const getRandomCarDataById = (carId) => {
   const maker = CAR_MAKERS[Math.floor(Math.random() * CAR_MAKERS.length)];
-  const color = COLOURS[Math.floor(Math.random() * COLOURS.length)];
+  const color = getRandomColor();
 
   return { id: carId, maker: maker, color: color };
 };

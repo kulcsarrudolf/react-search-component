@@ -1,7 +1,10 @@
 import React from "react";
 
-const MultipleResultFound = (props) => {
-  const carIdList = props.carIdList;
+import { getRandomCarIdList } from "./../../services/carService";
+
+const SearchCarByColor = (props) => {
+  const carIdList = getRandomCarIdList();
+  const selectCar = props.selectCar;
   return (
     <>
       <h3>Select one to continue.</h3>
@@ -10,8 +13,7 @@ const MultipleResultFound = (props) => {
           <li
             key={carId}
             onClick={() => {
-              // props.selectCar(carId);
-              console.log(carId);
+              selectCar(carId);
             }}
           >
             {carId}
@@ -22,4 +24,4 @@ const MultipleResultFound = (props) => {
   );
 };
 
-export default MultipleResultFound;
+export default SearchCarByColor;

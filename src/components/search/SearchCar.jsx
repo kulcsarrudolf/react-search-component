@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 
 import SearchCarById from "./SearchCarById";
 import SearchCarByColor from "./SearchCarByColor";
@@ -8,6 +8,8 @@ import { isValidCarColor } from "./../../utils/carValidation";
 import { isValidInput } from "./../../utils/carValidation";
 
 const SearchCar = () => {
+  console.log("SearchCar");
+
   const [searchingValue, setSearchingValue] = useState("");
   const [validSearchingValue, setValidSearchingValue] = useState(null);
   const [searchButtonDisabled, disableSearchButton] = useState(true);
@@ -36,11 +38,6 @@ const SearchCar = () => {
     }
   };
 
-  const selectCar = useCallback((carId) => {
-    setValidSearchingValue(carId);
-    setSearchType("SEARCH_BY_ID");
-  }, []);
-
   return (
     <>
       <h2>Search Vehicle</h2>
@@ -60,7 +57,7 @@ const SearchCar = () => {
       )}
 
       {searchType === "SEARCH_BY_COLOR" && (
-        <SearchCarByColor color={validSearchingValue} selectCar={selectCar} />
+        <SearchCarByColor color={validSearchingValue} />
       )}
     </>
   );

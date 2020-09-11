@@ -40,7 +40,7 @@ export const getRandomColor = () => {
   return COLOURS[Math.floor(Math.random() * COLOURS.length)];
 };
 
-export const getRandomCarIdList = () => {
+export const getRandomCarIdList = async () => {
   const result = [];
 
   const numberOfElements = Math.floor(Math.random() * listOfId.length);
@@ -48,6 +48,8 @@ export const getRandomCarIdList = () => {
   for (let i = 0; i < numberOfElements; i++) {
     result.push(getRandomCarId());
   }
+
+  await sleep(250 + Math.floor(Math.random() * Math.floor(750)));
 
   return Array.from(new Set(result));
 };

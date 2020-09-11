@@ -9,46 +9,62 @@ const SearchCarByColor = (props) => {
 
   const selectedColor = props.color;
 
-  const [carId, setCarId] = useState(null);
-  const [carIdList, setCarIdList] = useState([]);
+  const [result, setResult] = useState(null);
 
-  async function fetchCarData(selectedColor) {
-    const result = await getRandomCarIdList(carId);
-    setCarIdList(result);
-  }
+  const fetchCarData = async (selectedColor) => {
+    const result = await getRandomCarIdList(selectedColor);
+    setResult(result);
+  };
 
   useEffect(() => {
-    setCarId(null);
-    setCarIdList([]);
+    setResult(null);
     fetchCarData(selectedColor);
-    console.log("test");
   }, [props]);
+
+  if (result) {
+    const resultLength = result.length;
+    return (
+      <>
+        {resultLength === 0 && <ResultNotFound />}
+
+        {resultLength === 1 && <SearchCarById carId={result[0]} />}
+
+        {resultLength > 1 && (
+          <MultipleResult
+            result={result}
+            color={selectedColor}
+            selecctCarId={setResult}
+          />
+        )}
+      </>
+    );
+  }
+
+  return <p>Loading ...</p>;
+};
+
+const MultipleResult = (props) => {
+  const selectCarId = (carId) => {
+    props.selecctCarId(carId);
+  };
+  const result = props.result;
+  const color = props.color;
 
   return (
     <>
-      {carIdList.length === 0 && <ResultNotFound />}
-
-      {carIdList.length === 1 && <SearchCarById carId={carIdList[0]} />}
-
-      {carIdList.length > 1 && (
-        <>
-          <h3>List of the {selectedColor} cars</h3>
-          <ul>
-            {carIdList.map((carId) => (
-              <li
-                key={carId}
-                onClick={() => {
-                  setCarId(carId);
-                }}
-              >
-                {carId}
-              </li>
-            ))}
-          </ul>
-        </>
-      )}
-
-      {carId && <SearchCarById carId={carId} />}
+      <h3>List of the {color} cars</h3>
+      <ul>
+        {result.map((carId) => (
+          <li
+            key={carId}
+            onClick={() => {
+              selectCarId(Array.of(carId));
+            }}
+          >
+            {carId}
+          </li>
+        ))}
+      </ul>
     </>
   );
 };

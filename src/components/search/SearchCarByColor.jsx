@@ -54,4 +54,3 @@ const SearchCarByColor = (props) => {
 };
 
 export default React.memo(SearchCarByColor);
-// export default SearchCarByColor;

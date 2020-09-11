@@ -52,13 +52,15 @@ const SearchCar = () => {
         Search
       </button>
 
-      {searchType === "SEARCH_BY_ID" && (
-        <SearchCarById carId={validSearchingValue} />
-      )}
+      <div className="search-area">
+        {searchType === "SEARCH_BY_ID" && (
+          <SearchCarById carId={validSearchingValue} />
+        )}
 
-      {searchType === "SEARCH_BY_COLOR" && (
-        <SearchCarByColor color={validSearchingValue} />
-      )}
+        {searchType === "SEARCH_BY_COLOR" && (
+          <SearchCarByColor color={validSearchingValue} />
+        )}
+      </div>
     </>
   );
 };

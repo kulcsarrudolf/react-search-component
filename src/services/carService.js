@@ -68,6 +68,6 @@ export const getCarById = async (id) => {
   if (resultFound) {
     return getRandomCarDataById(id);
   } else {
-    return null;
+    return false;
   }
 };

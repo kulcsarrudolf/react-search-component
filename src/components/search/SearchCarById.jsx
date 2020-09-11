@@ -6,27 +6,24 @@ import Result from "./Result";
 import { getCarById } from "./../../services/carService";
 
 const SearchCarById = (props) => {
-  console.log("SearchCarById");
-
   const carId = props.carId;
 
   const [result, setResult] = useState(null);
 
-  async function fetchCar(carId) {
+  const fetchCar = async (carId) => {
     const result = await getCarById(carId);
     setResult(result);
-  }
+  };
 
   useEffect(() => {
     fetchCar(carId);
   }, [carId]);
 
   if (result) {
-    return <Result car={result} />;
+    return <>{result ? <Result car={result} /> : <ResultNotFound />}</>;
   }
 
-  return <ResultNotFound />;
+  return <p>Loading...</p>;
 };
 
-// export default SearchCarById;
 export default React.memo(SearchCarById);

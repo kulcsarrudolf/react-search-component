@@ -10,28 +10,29 @@ import { isValidInput } from "./../../utils/carValidation";
 const SearchCar = () => {
   console.log("SearchCar");
 
-  const [searchingValue, setSearchingValue] = useState("");
-  const [validSearchingValue, setValidSearchingValue] = useState(null);
+  const [currentSearchingValue, setCurrentSearchingValue] = useState("");
+  const [searchingValue, setSearchingValue] = useState(null);
+
   const [searchButtonDisabled, disableSearchButton] = useState(true);
   const [searchType, setSearchType] = useState(null);
 
-  const handleSearchInputChange = (e) => {
-    setSearchingValue(e.target.value);
+  const disableSearchButtonCondition = (searchValue) => {
+    return !isValidInput(searchValue);
+  };
 
-    if (isValidInput(e.target.value)) {
-      disableSearchButton(false);
-    } else {
-      disableSearchButton(true);
-    }
+  const handleSearchInputChange = (e) => {
+    disableSearchButton(disableSearchButtonCondition(e.target.value));
+    setCurrentSearchingValue(e.target.value);
   };
 
   const handleSearchClick = () => {
     disableSearchButton(true);
-    setValidSearchingValue(searchingValue);
 
-    if (isValidCarId(searchingValue)) {
+    setSearchingValue(currentSearchingValue);
+
+    if (isValidCarId(currentSearchingValue)) {
       setSearchType("SEARCH_BY_ID");
-    } else if (isValidCarColor(searchingValue)) {
+    } else if (isValidCarColor(currentSearchingValue)) {
       setSearchType("SEARCH_BY_COLOR");
     } else {
       setSearchType(null);
@@ -42,11 +43,7 @@ const SearchCar = () => {
     <>
       <h2>Search Vehicle</h2>
 
-      <input
-        type="text"
-        onChange={handleSearchInputChange}
-        value={searchingValue}
-      />
+      <input type="text" onChange={handleSearchInputChange} />
 
       <button disabled={searchButtonDisabled} onClick={handleSearchClick}>
         Search
@@ -54,11 +51,11 @@ const SearchCar = () => {
 
       <div className="search-area">
         {searchType === "SEARCH_BY_ID" && (
-          <SearchCarById carId={validSearchingValue} />
+          <SearchCarById carId={searchingValue} />
         )}
 
         {searchType === "SEARCH_BY_COLOR" && (
-          <SearchCarByColor color={validSearchingValue} />
+          <SearchCarByColor color={searchingValue} />
         )}
       </div>
     </>

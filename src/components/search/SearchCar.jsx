@@ -11,7 +11,7 @@ const SearchCar = () => {
   console.log("SearchCar");
 
   const [currentSearchingValue, setCurrentSearchingValue] = useState("");
-  const [searchingValue, setSearchingValue] = useState(null);
+  const [searchingValue, setSearchingValue] = useState("");
 
   const [searchButtonDisabled, disableSearchButton] = useState(true);
   const [searchType, setSearchType] = useState(null);

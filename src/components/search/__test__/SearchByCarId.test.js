@@ -4,14 +4,21 @@ import "@testing-library/jest-dom/extend-expect";
 
 import SearchCarById from "./../SearchCarById";
 
-import carServiceMock from "./__mocks__/carServiceMock";
+import { getCarById } from "./../../../services/carService";
 
 const testCarId = "AB0123456789";
 
-afterEach(cleanup);
+jest.mock("./../../../services/carService", () => ({
+  getCarById: jest.fn().mockResolvedValue({}),
+}));
+
+afterEach(() => {
+  cleanup();
+  jest.clearAllMocks();
+});
 
 it("no result", async () => {
-  carServiceMock.getCarById.mockResolvedValueOnce(false);
+  getCarById.mockResolvedValueOnce(false);
 
   const { getByTestId } = render(<SearchCarById carId={testCarId} />);
 
@@ -20,12 +27,12 @@ it("no result", async () => {
   const resultDiv = await waitForElement(() => getByTestId("result"));
 
   expect(resultDiv).toHaveTextContent("Result Not Found");
-  expect(carServiceMock.getCarById).toHaveBeenCalledTimes(1);
-  expect(carServiceMock.getCarById).toHaveBeenCalledWith(testCarId);
+  expect(getCarById).toHaveBeenCalledTimes(1);
+  expect(getCarById).toHaveBeenCalledWith(testCarId);
 });
 
 it("result found", async () => {
-  carServiceMock.getCarById.mockResolvedValueOnce({
+  getCarById.mockResolvedValueOnce({
     id: "AB0123456789",
     maker: "AUDI",
     color: "BLUE",
@@ -42,6 +49,6 @@ it("result found", async () => {
   expect(resultDiv).toHaveTextContent("Car maker: AUDI");
   expect(resultDiv).toHaveTextContent("Car color: BLUE");
 
-  expect(carServiceMock.getCarById).toHaveBeenCalledTimes(1);
-  expect(carServiceMock.getCarById).toHaveBeenCalledWith(testCarId);
+  expect(getCarById).toHaveBeenCalledTimes(1);
+  expect(getCarById).toHaveBeenCalledWith(testCarId);
 });

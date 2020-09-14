@@ -3,9 +3,8 @@ import React, { useState } from "react";
 import SearchCarById from "./SearchCarById";
 import SearchCarByColor from "./SearchCarByColor";
 
-import { isValidCarId } from "./../../utils/carValidation";
-import { isValidCarColor } from "./../../utils/carValidation";
 import { isValidInput } from "./../../utils/carValidation";
+import { getSearchType } from "./../../utils/carValidation";
 
 const SearchCar = () => {
   console.log("SearchCar");
@@ -28,15 +27,8 @@ const SearchCar = () => {
   const handleSearchClick = () => {
     disableSearchButton(true);
 
+    setSearchType(getSearchType(currentSearchingValue));
     setSearchingValue(currentSearchingValue);
-
-    if (isValidCarId(currentSearchingValue)) {
-      setSearchType("SEARCH_BY_ID");
-    } else if (isValidCarColor(currentSearchingValue)) {
-      setSearchType("SEARCH_BY_COLOR");
-    } else {
-      setSearchType(null);
-    }
   };
 
   return (
@@ -53,9 +45,12 @@ const SearchCar = () => {
         {searchType === "SEARCH_BY_ID" && (
           <SearchCarById carId={searchingValue} />
         )}
-
         {searchType === "SEARCH_BY_COLOR" && (
           <SearchCarByColor color={searchingValue} />
+        )}
+
+        {searchType === "SEARCH_BY_MAKER" && (
+          <p>Comming soon! Not implemented yet!</p>
         )}
       </div>
     </>

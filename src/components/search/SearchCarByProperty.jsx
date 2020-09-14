@@ -1,25 +1,21 @@
 import React, { useState, useEffect } from "react";
 
-import { getAllCarsByColor } from "./../../services/carService";
 import ResultNotFound from "./ResultNotFound";
 import SearchCarById from "./SearchCarById";
 
-const SearchCarByColor = (props) => {
-  console.log("SearchCarByColor");
-
-  const selectedColor = props.color;
-
+const SearchCarByProperty = ({ property, propertyValue, callback }) => {
   const [result, setResult] = useState(null);
-
-  const fetchCarData = async (selectedColor) => {
-    const result = await getAllCarsByColor(selectedColor);
-    setResult(result);
-  };
 
   useEffect(() => {
     setResult(null);
-    fetchCarData(props.color);
-  }, [props]);
+
+    const fetchCarData = async () => {
+      const result = await callback(propertyValue);
+      setResult(result);
+    };
+
+    fetchCarData();
+  }, [property, propertyValue, callback]);
 
   if (result) {
     const resultLength = result.length;
@@ -32,8 +28,8 @@ const SearchCarByColor = (props) => {
         {resultLength > 1 && (
           <MultipleResult
             result={result}
-            color={selectedColor}
-            selecctCarId={setResult}
+            propertyValue={propertyValue}
+            selectCarId={setResult}
           />
         )}
       </>
@@ -45,14 +41,14 @@ const SearchCarByColor = (props) => {
 
 const MultipleResult = (props) => {
   const selectCarId = (carId) => {
-    props.selecctCarId(carId);
+    props.selectCarId(carId);
   };
   const result = props.result;
-  const color = props.color;
+  const propertyValue = props.propertyValue;
 
   return (
     <>
-      <h3>List of the {color} cars</h3>
+      <h3>List of the {propertyValue} cars</h3>
       <ul>
         {result.map((carId) => (
           <li
@@ -69,4 +65,4 @@ const MultipleResult = (props) => {
   );
 };
 
-export default React.memo(SearchCarByColor);
+export default SearchCarByProperty;

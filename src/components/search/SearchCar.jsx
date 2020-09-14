@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 
 import SearchCarById from "./SearchCarById";
-import SearchCarByColor from "./SearchCarByColor";
+import SearchCarByProperty from "./SearchCarByProperty";
 
 import { isValidInput } from "./../../utils/carValidation";
 import { getSearchType } from "./../../utils/carValidation";
 
-const SearchCar = () => {
-  console.log("SearchCar");
+import { getAllCarsByColor } from "./../../services/carService";
+import { getAllCarsByMaker } from "./../../services/carService";
 
-  const [currentSearchingValue, setCurrentSearchingValue] = useState("");
+const SearchCar = () => {
   const [searchingValue, setSearchingValue] = useState("");
+  const [filterValue, setFilterValue] = useState("");
 
   const [searchButtonDisabled, disableSearchButton] = useState(true);
   const [searchType, setSearchType] = useState(null);
@@ -21,14 +22,13 @@ const SearchCar = () => {
 
   const handleSearchInputChange = (e) => {
     disableSearchButton(disableSearchButtonCondition(e.target.value));
-    setCurrentSearchingValue(e.target.value);
+    setFilterValue(e.target.value);
   };
 
   const handleSearchClick = () => {
     disableSearchButton(true);
-
-    setSearchType(getSearchType(currentSearchingValue));
-    setSearchingValue(currentSearchingValue);
+    setSearchingValue(filterValue);
+    setSearchType(getSearchType(filterValue));
   };
 
   return (
@@ -45,12 +45,21 @@ const SearchCar = () => {
         {searchType === "SEARCH_BY_ID" && (
           <SearchCarById carId={searchingValue} />
         )}
+
         {searchType === "SEARCH_BY_COLOR" && (
-          <SearchCarByColor color={searchingValue} />
+          <SearchCarByProperty
+            property={"color"}
+            propertyValue={searchingValue}
+            callback={getAllCarsByColor}
+          />
         )}
 
         {searchType === "SEARCH_BY_MAKER" && (
-          <p>Comming soon! Not implemented yet!</p>
+          <SearchCarByProperty
+            property={"maker"}
+            propertyValue={searchingValue}
+            callback={getAllCarsByMaker}
+          />
         )}
       </div>
     </>

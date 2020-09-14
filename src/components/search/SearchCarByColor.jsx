@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { getCarByColor } from "./../../services/carService";
+import { getAllCarsByColor } from "./../../services/carService";
 import ResultNotFound from "./ResultNotFound";
 import SearchCarById from "./SearchCarById";
 
@@ -12,7 +12,7 @@ const SearchCarByColor = (props) => {
   const [result, setResult] = useState(null);
 
   const fetchCarData = async (selectedColor) => {
-    const result = await getCarByColor(selectedColor);
+    const result = await getAllCarsByColor(selectedColor);
     setResult(result);
   };
 

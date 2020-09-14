@@ -36,7 +36,6 @@ it("result found", async () => {
   expect(getByTestId("loading")).toHaveTextContent("Loading...");
 
   const resultDiv = await waitForElement(() => getByTestId("result"));
-  console.log(getByTestId("result"));
 
   expect(resultDiv).toHaveTextContent("Result Found");
   expect(resultDiv).toHaveTextContent("Car ID: AB0123456789");

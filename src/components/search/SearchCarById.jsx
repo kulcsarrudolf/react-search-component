@@ -11,14 +11,14 @@ const SearchCarById = ({ carId }) => {
   useEffect(() => {
     let mounted = true;
 
-    const fetchCar = async (carId) => {
+    const fetchCar = async () => {
       const result = await getCarById(carId);
       if (mounted) {
         setResult(result);
       }
     };
 
-    fetchCar(carId);
+    fetchCar();
 
     return () => {
       mounted = false;

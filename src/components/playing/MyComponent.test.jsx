@@ -15,20 +15,25 @@ it("red", async () => {
 
   const resultDiv = await waitForElement(() => getByTestId("result"));
 
-  expect(resultDiv).toHaveTextContent("red");
+  expect(resultDiv).toHaveTextContent("");
 });
 
 it("blue", async () => {
-  const { getByTestId, getByLabelText } = render(<TestComponent />);
+  const { getByTestId } = render(<TestComponent />);
 
-  const input = getByTestId("color-input");
-  //   const input = getByLabelText("color");
-  console.log(input);
-  //   const input = await waitForElement(() => getByTestId("color-input"));
-
-  fireEvent.change(input, { target: { value: "blue" } });
+  const input = getByTestId("blue-radio-button");
+  fireEvent.click(input);
 
   const resultDiv = await waitForElement(() => getByTestId("result"));
+  expect(resultDiv).toHaveTextContent("You selected blue!");
+});
 
-  expect(resultDiv).toHaveTextContent("blue");
+it("white", async () => {
+  const { getByTestId } = render(<TestComponent />);
+
+  const input = getByTestId("yellow-radio-button");
+  fireEvent.click(input);
+
+  const resultDiv = await waitForElement(() => getByTestId("result"));
+  expect(resultDiv).toHaveTextContent("You selected yellow!");
 });

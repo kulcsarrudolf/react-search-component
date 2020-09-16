@@ -5,8 +5,10 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 
+const colors = ["blue", "green", "red", "yellow", "violet", "indigo", "pink"];
+
 const MyComponent = () => {
-  const [value, setValue] = React.useState("red");
+  const [value, setValue] = React.useState("");
 
   const handleChange = (e) => {
     setValue(e.target.value);
@@ -15,24 +17,27 @@ const MyComponent = () => {
   return (
     <>
       <FormControl component="fieldset">
-        <FormLabel component="legend">Colors</FormLabel>
+        <FormLabel component="legend">Select a color!</FormLabel>
         <RadioGroup
-          data-testid="color-input"
           aria-label="color"
           name="color"
           value={value}
           onChange={handleChange}
         >
-          <FormControlLabel value="red" control={<Radio />} label="Red" />
-          <FormControlLabel value="blue" control={<Radio />} label="Blue" />
-          <FormControlLabel value="white" control={<Radio />} label="White" />
+          {colors.map((color) => (
+            <FormControlLabel
+              data-testid={`${color}-radio-button`}
+              value={color}
+              key={color}
+              control={<Radio />}
+              label={color}
+            />
+          ))}
         </RadioGroup>
       </FormControl>
 
       <div data-testid="result">
-        {value === "red" && <p>red</p>}
-        {value === "blue" && <p>blue</p>}
-        {value === "white" && <p>white</p>}
+        {colors.includes(value) && <p>You selected {value}!</p>}
       </div>
     </>
   );
